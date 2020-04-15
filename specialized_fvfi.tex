@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithm
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{algorithmicx}
+\pagenumbering{gobble}
+
+\begin{document}
+\begin{algorithm}
+  \caption{FVFI + Piecewise Linear Interpolation + Grid}
+  \begin{algorithmic}
+    \State initialize $v$ (array of size: $N$)
+    \State initialize $v'$ (array of size: $N$)
+    \State initialize $x_{grid}=\left(x_{i}\right)_{i=1}^{N}$
+    \Repeat
+      \For{$i=1$ to $N$}
+        \State $v'\left(x_{i}\right)\gets \max_{c\in\Gamma\left(x\right)}\left\{ u\left(c\right)+\beta\mathrm{interp}\left(x_{grid},v,x-c\right)\right\} $
+      \EndFor
+      \State set $e=d_{\infty}\left(v,v'\right)$
+      \State set $v=v'$
+    \Until{e is less than some tolerance}
+  \end{algorithmic}
+\end{algorithm}
+\end{document}
+
+% Compilation
+% pdflatex specialized_fvfi.tex
+% pdfcrop specialized_fvfi.pdf
+% pdftoppm specialized_fvfi-crop.pdf|pnmtopng > specialized_fvfi.png
